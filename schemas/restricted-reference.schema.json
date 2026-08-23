@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://torus.dev/schemas/restricted-reference.schema.json",
+  "title": "Restricted reference",
+  "description": "Metadata ABOUT an externally held artifact. The Library records where something lives, who controls it, and how to request it — never the artifact and never a credential. Fields that could carry secret material are validated by engine/src/diligence/secrets.js.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "title", "date", "custodian", "storage", "classification", "status"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "A Library ID, so a reference is addressable exactly like a paper.",
+      "pattern": "^[A-Z][A-Z0-9]{1,7}-[0-9]{4}-[0-9]{2}-[0-9]{2}-[A-Z]{3}-[0-9]{3}$"
+    },
+    "title": { "type": "string", "minLength": 1 },
+    "date": { "type": "string", "format": "date" },
+    "document_class": {
+      "type": ["string", "null"],
+      "description": "Instance-configured class label, e.g. 'Legal', 'Financial'."
+    },
+    "owner": {
+      "type": ["string", "null"],
+      "description": "Role or function accountable for the artifact. A role is preferred to a person."
+    },
+    "custodian": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Who or what holds the artifact — the party to ask. Never a credential."
+    },
+    "storage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["system"],
+      "description": "Where the artifact lives. A locator, never an access path with embedded credentials.",
+      "properties": {
+        "system": { "type": "string", "minLength": 1 },
+        "external_id": { "type": ["string", "null"] },
+        "locator": {
+          "type": ["string", "null"],
+          "description": "A human-resolvable pointer (a path, a case number, a folder name). Must not be a pre-authenticated or signed URL."
+        }
+      }
+    },
+    "classification": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Sensitivity label from the instance's configured vocabulary."
+    },
+    "audience": {
+      "type": ["string", "null"],
+      "description": "Audience of the REFERENCE itself. Defaults to the most restrictive configured audience when omitted — never widened."
+    },
+    "effective_date": { "type": ["string", "null"], "format": "date" },
+    "retention": {
+      "type": ["string", "null"],
+      "description": "Retention category. The Library never deletes canon; this records the custodian's obligation."
+    },
+    "related_entity": { "type": ["string", "null"] },
+    "related_products": { "type": "array", "items": { "type": "string" } },
+    "diligence_categories": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Categories from the instance's configured diligence taxonomy."
+    },
+    "fingerprint": {
+      "type": ["string", "null"],
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "SHA-256 of the external artifact, supplied by the custodian. Lets the Library prove which version was referenced without holding the artifact."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "review", "canon", "superseded", "amended"],
+      "description": "Same lifecycle as a paper — references are chronicle records too."
+    },
+    "supersedes": { "type": ["string", "null"] },
+    "amends": { "type": ["string", "null"] },
+    "access_notes": {
+      "type": ["string", "null"],
+      "description": "How to request access, in prose. MUST NOT contain credentials of any kind; validated."
+    }
+  }
+}

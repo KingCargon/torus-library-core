@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://torus.dev/schemas/paper-metadata.schema.json",
+  "title": "Paper front-matter metadata",
+  "description": "Required metadata for every paper, per Torus Library Build 01 (TORUS_LIBRARY_ARCHITECTURE.md §4), extended additively by ADR-0003 with source_sha256.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "title", "date", "authors", "status", "audience"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "PREFIX-YYYY-MM-DD-TYPE-### — validated structurally against the instance config, not by this pattern alone.",
+      "pattern": "^[A-Z][A-Z0-9]{1,7}-[0-9]{4}-[0-9]{2}-[0-9]{2}-[A-Z]{3}-[0-9]{3}$"
+    },
+    "title": { "type": "string", "minLength": 1 },
+    "date": { "type": "string", "format": "date" },
+    "authors": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "approvers": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "review", "canon", "superseded", "amended"]
+    },
+    "audience": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Must be one of the instance's configured audiences. Absent or unrecognised => fail closed, never treated as public."
+    },
+    "supersedes": {
+      "type": ["string", "null"],
+      "pattern": "^[A-Z][A-Z0-9]{1,7}-[0-9]{4}-[0-9]{2}-[0-9]{2}-[A-Z]{3}-[0-9]{3}$"
+    },
+    "amends": {
+      "type": ["string", "null"],
+      "pattern": "^[A-Z][A-Z0-9]{1,7}-[0-9]{4}-[0-9]{2}-[0-9]{2}-[A-Z]{3}-[0-9]{3}$"
+    },
+    "markdown_source": { "type": ["string", "null"] },
+    "pdf": { "type": ["string", "null"] },
+    "pdf_hash": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+    "source_sha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+    "frozen_at": { "type": ["string", "null"], "format": "date-time" },
+    "related_products": { "type": "array", "items": { "type": "string" } },
+    "related_builds": { "type": "array", "items": { "type": "string" } },
+    "related_data_ids": { "type": "array", "items": { "type": "string" } },
+    "licence_or_confidentiality": { "type": ["string", "null"] }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "id_prefix": "NW",
+  "organisation": { "name": "Northwind Institute", "imprint": "Northwind Library" },
+  "type_codes": { "PHI": "Philosophy", "ADR": "Decision record", "CHR": "Chronicle", "POL": "Policy" },
+  "audiences": ["public", "internal", "investor", "restricted"],
+  "public_audience": "public",
+  "paths": {
+    "papers": "papers", "canon": "canon",
+    "manifest": "manifests/library-manifest.json", "public_export": "public"
+  },
+  "pdf": { "renderer": "chromium", "footer_note": "Northwind Institute — Northwind Library." }
+}

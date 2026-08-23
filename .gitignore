@@ -1,0 +1,15 @@
+node_modules/
+*.log
+.DS_Store
+.env
+.env.*
+!.env.example
+# A library created by `torus-library init` in this directory
+canon/
+papers/
+manifests/
+exports/
+diligence/
+public-site/
+references/
+index/

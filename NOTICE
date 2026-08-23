@@ -1,0 +1,22 @@
+Torus Library
+Copyright (c) 2026
+
+This product includes third-party software:
+
+  markdown-it   MIT
+  js-yaml       MIT
+  ajv           MIT
+  ajv-formats   MIT
+
+Transitively:
+
+  entities      BSD-2-Clause
+  fast-uri      BSD-3-Clause
+  argparse      Python-2.0   (via js-yaml)
+
+All are permissive and impose no copyleft obligation. The Python-2.0
+licence of `argparse` requires its notice to be carried; this file
+satisfies that.
+
+A LICENSE file for Torus Library itself is pending. Until it is present,
+no licence is granted for this work.

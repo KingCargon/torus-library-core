@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://torus.dev/schemas/data-link.schema.json",
+  "title": "Library ↔ Data link",
+  "description": "A one-directional, optional link from a Library record to quantitative evidence held elsewhere. The Library validates the SHAPE of a reference; it does not define the measurement system's internal identifier grammar, because that belongs to the measurement system.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contract_version", "library_id", "data_ref", "relation"],
+  "properties": {
+    "contract_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+$",
+      "description": "MAJOR.MINOR of this contract. A consumer must refuse an unknown MAJOR and may accept an unknown MINOR (forward-compatible)."
+    },
+    "library_id": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9]{1,7}-[0-9]{4}-[0-9]{2}-[0-9]{2}-[A-Z]{3}-[0-9]{3}$",
+      "description": "The Library record being cited. The Library is authoritative for this identifier."
+    },
+    "library_status_at_link": {
+      "type": ["string", "null"],
+      "enum": ["draft", "review", "canon", "superseded", "amended", null],
+      "description": "The record's status when the link was made. Recorded so a later status change is visible as history rather than silently rewriting the link's meaning."
+    },
+    "data_ref": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_-]{1,31}:[^\\s]{1,256}$",
+      "description": "A namespaced reference: '<source>:<identifier>'. The source names the measurement system; the identifier is OPAQUE to the Library and is validated only for non-emptiness. This is deliberate — defining the identifier grammar would mean inventing a product the Library does not own."
+    },
+    "relation": {
+      "type": "string",
+      "enum": ["measures", "supports", "relates_to"],
+      "description": "measures: the observation quantifies what the record describes. supports: the observation is evidence for a claim the record makes. relates_to: a weaker association."
+    },
+    "data_product": { "type": ["string", "null"] },
+    "data_product_version": { "type": ["string", "null"] },
+    "observed_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "Instant of observation, when a single instant applies."
+    },
+    "period_start": { "type": ["string", "null"], "format": "date" },
+    "period_end": { "type": ["string", "null"], "format": "date" },
+    "provenance": {
+      "type": ["string", "null"],
+      "description": "How the observation was produced, in prose."
+    },
+    "fingerprint": {
+      "type": ["string", "null"],
+      "pattern": "^[a-f0-9]{64}$",
+      "description": "Optional SHA-256 supplied by the measurement system, identifying the exact observation referenced. The Library stores it; it does not compute or verify it, because it does not hold the observation."
+    },
+    "note": { "type": ["string", "null"] }
+  }
+}
