@@ -25,9 +25,9 @@ It is a chronicle, not a wiki.
 npx torus-library init --organisation "Acme Corp" --prefix ACME
 ```
 
-> **Status: Open Core · Early Access.** The engine is complete and tested.
-> It is not a hosted service, and this is not a finished self-serve
-> product. See [Project status](#project-status).
+> **Status: Open Core · Early Access.** Apache-2.0. The engine is complete
+> and tested. It is not a hosted service, and this is not a finished
+> self-serve product. See [Project status](#project-status).
 
 ---
 
@@ -146,7 +146,11 @@ The core is not crippled to sell them.
 
 ## Licence
 
-**Not yet finalised.** This repository is being prepared for an open-core
-release and the licence decision is pending. Until a `LICENSE` file is
-present, no licence is granted. Please do not assume one — the absence of
-a licence file means all rights are reserved.
+**Apache License 2.0.** See [LICENSE](./LICENSE) and [NOTICE](./NOTICE).
+
+Apache-2.0 was chosen over MIT deliberately: it carries an express patent
+grant. If a company is going to keep its institutional record in this,
+it should not have to wonder whether using it creates patent exposure.
+
+You may run it, fork it, modify it, and self-host it commercially. There
+is no key to expire and no tier to unlock.

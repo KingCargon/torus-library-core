@@ -22,4 +22,4 @@ First public preparation of the Torus Library engine.
 ### Notes
 - 146 tests.
 - Four runtime dependencies, all permissively licensed.
-- Licence not yet finalised; see README.
+- Licensed under Apache-2.0.

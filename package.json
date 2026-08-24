@@ -2,7 +2,7 @@
   "name": "torus-library",
   "version": "0.6.0",
   "description": "Institutional memory infrastructure: a dated, PDF-backed, hash-verified chronicle of how an organisation was built. Markdown in, frozen canon out.",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "Apache-2.0",
   "type": "module",
   "bin": {
     "torus-library": "./bin/torus-library.mjs"
