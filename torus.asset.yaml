@@ -42,28 +42,36 @@ asset:
 
   factory:
     # The product identity moved here from `torus-library` on 2026-08-30,
-    # before anything was ever published under it — see that repository's
-    # record for the reasoning. Permanent from this point.
-    listing_state: not-listed
+    # before anything was ever published under it. Permanent from this point.
+    #
+    # A Factory listing already exists and is fully public — added manually
+    # via Torus Factory PRs #5 (2026-08-23) and #6 (2026-08-24), before this
+    # gate existed. The record follows that reality rather than asserting a
+    # different one; `first_publication_approved_on` is the date the listing
+    # actually went public, not the date this field was filled in.
+    listing_state: listed-public
     slug: torus-library
     previous_slugs: []
-    # NOT approved. The source is public; a Factory listing is a separate,
-    # founder-only decision (§18.5) and has not been made.
-    first_publication_approved: false
-    first_publication_approved_by:
-    first_publication_approved_on:
-    last_sync:
+    first_publication_approved: true
+    first_publication_approved_by: Kevin Cargon
+    first_publication_approved_on: "2026-08-23"
+    last_sync: "2026-08-31"
 
+  # RECONCILED to the live Torus Factory listing on 2026-08-31, field by
+  # field. The published page is richer than this record was, and the
+  # published page is the reality — so the record follows it. Emitting a
+  # thinner record over a live listing would delete content from a public
+  # page, which is a regression, not a sync.
   public_metadata:
-    category: developer-infrastructure
+    category: business-systems
     type_label: Institutional Memory Infrastructure
-    tagline: A permanent memory for your company.
+    tagline: Give your company a memory.
     description: >
-      Institutional memory infrastructure: a dated, PDF-backed,
-      hash-verified chronicle of how an organisation was built. Markdown in,
-      frozen canon out. GitHub remembers the code and Slack remembers the
-      conversations; this remembers the company — the decisions and the
-      reasoning behind them.
+      Preserves the decisions, history, policies and proof behind a company
+      in a dated, verifiable Chronicle. Every record is classified by
+      audience, rendered to PDF, hashed, and frozen — corrections become
+      amendments or superseding revisions, never silent edits. Open-core
+      institutional memory infrastructure for AI-native companies.
     # `release-candidate`, not `released`. The source is public and
     # Apache-2.0, but the package is not on npm and there is no published
     # install path, so claiming a release would overstate what exists.
@@ -72,7 +80,29 @@ asset:
     access_model: open-source
     pricing: not-yet-priced
     license: Apache-2.0
-    last_release: "2026-08-24"
+    last_release: "2026-08-23"
+    note: >
+      Open Core · Early Access. The open-source core is public under
+      Apache-2.0 and can be self-hosted today — 146 tests, four permissive
+      dependencies, no database and no account required. There is no hosted
+      version, no web editor, and no self-serve onboarding yet, which is why
+      this is a release candidate rather than released.
+    features:
+      - Markdown in, frozen canon out — validate, render to PDF, hash, register, freeze
+      - "Dual SHA-256 integrity: one hash over the source text, one over the published PDF"
+      - Amendments and superseding revisions; published records are never rewritten
+      - Audience classification that fails closed — missing or misspelled never means public
+      - Static public site generated through the same audience gate as publishing
+      - Portable diligence exports a recipient can verify without any Torus software
+      - Restricted references that record where sensitive material lives, never the material
+      - Runs entirely on your own disk — no database, no server, no account
+    architecture:
+      summary: >
+        A Node CLI and library with four permissive runtime dependencies.
+        Records are Markdown and PDF; the register is JSON. Everything
+        organisation-specific is configuration, so the engine carries no
+        assumption about any particular company — its test suite runs against
+        a fictional organisation, which is how that stays true. 146 tests.
     links:
       github: https://github.com/KingCargon/torus-library-core
       docs:
