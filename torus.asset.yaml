@@ -1,0 +1,82 @@
+# Torus canonical project record — Torus Library (open-core engine).
+#
+# Adopted 2026-08-30 under the Founder Code MultiBuild Operating System §17.
+# This repository holds the PRODUCT. Founder Code's own instance of it —
+# the company's papers, canon, and diligence records — lives separately in
+# `torus-library` and is classified there as an `instance`, which is
+# structurally unlistable.
+#
+# PUBLIC-SAFE IN ITS ENTIRETY. This repository is already public; nothing
+# here is confidential.
+schema_version: "2"
+asset:
+  # The product identity. Held here rather than in `torus-library` because
+  # this is the repository a user can actually obtain the product from.
+  id: torus.library
+  name: Torus Library
+  brand: Torus
+  product_family: torus
+
+  type: product
+
+  # Publicly available and Apache-2.0 licensed, but pre-1.0 and not yet
+  # published to a package registry. `early-access` rather than `public`.
+  status: early-access
+
+  # Public foundation (this repository, Apache-2.0) plus paid capability on
+  # top — the Founding Company Program documented in the instance repo.
+  visibility: open-core
+
+  version: "0.6.0"
+
+  # Inherited verbatim from TORUS_LIBRARY_STRATEGIC_REPORT_2026-08-22.md's
+  # own "North star" section. Same product, same north star as the instance.
+  north_star: >
+    A dated, PDF-backed institutional chronicle that makes a company
+    investable, auditable, and exit-ready — with meaning (Library) separate
+    from measurement (Torus Data).
+
+  repository:
+    name: torus-library-core
+    default_branch: main
+
+  factory:
+    # The product identity moved here from `torus-library` on 2026-08-30,
+    # before anything was ever published under it — see that repository's
+    # record for the reasoning. Permanent from this point.
+    listing_state: not-listed
+    slug: torus-library
+    previous_slugs: []
+    # NOT approved. The source is public; a Factory listing is a separate,
+    # founder-only decision (§18.5) and has not been made.
+    first_publication_approved: false
+    first_publication_approved_by:
+    first_publication_approved_on:
+    last_sync:
+
+  public_metadata:
+    category: developer-infrastructure
+    type_label: Institutional Memory Infrastructure
+    tagline: A permanent memory for your company.
+    description: >
+      Institutional memory infrastructure: a dated, PDF-backed,
+      hash-verified chronicle of how an organisation was built. Markdown in,
+      frozen canon out. GitHub remembers the code and Slack remembers the
+      conversations; this remembers the company — the decisions and the
+      reasoning behind them.
+    # `release-candidate`, not `released`. The source is public and
+    # Apache-2.0, but the package is not on npm and there is no published
+    # install path, so claiming a release would overstate what exists.
+    # Move to `released` when it is actually published.
+    manufacturing_stage: release-candidate
+    access_model: open-source
+    pricing: not-yet-priced
+    license: Apache-2.0
+    last_release: "2026-08-24"
+    links:
+      github: https://github.com/KingCargon/torus-library-core
+      docs:
+      demo:
+      product:
+      early_access:
+      pricing:
