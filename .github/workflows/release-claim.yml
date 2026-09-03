@@ -1,0 +1,65 @@
+# Reusable release-claim emitter for a Torus/Cargon product repository.
+#
+# Copy this file to `.github/workflows/release-claim.yml` in a product repo.
+# It is intentionally the same in every product: a claim is built from facts
+# the repository already owns, so nothing here is product-specific.
+#
+# WHAT THIS DOES NOT DO, BY DESIGN
+#   - It holds no credential and requests no secret.
+#   - It does not write to Torus Factory, the portfolio registry, or any
+#     MultiBuild state. It cannot: it has no access to them.
+#   - It does not decide whether this release may be published. That is the
+#     MultiBuild control plane's decision, made from the product's classified
+#     record — not from anything asserted here.
+#
+# What it produces is a CLAIM: "this product, at this version, at this
+# commit." MultiBuild validates that claim against control-plane bindings and
+# against this product's own record before accepting it.
+name: Release claim
+
+on:
+  push:
+    tags: ["v*"]
+  # Manual runs are useful for backfilling a release that predates this
+  # workflow. Still no credential, still only a claim.
+  workflow_dispatch:
+
+# Explicitly minimal. `contents: read` is the default a claim needs to read
+# its own record; nothing else is requested. Note there is deliberately no
+# `pull_request` trigger — a fork must never be able to run this, and with no
+# secret to obtain there is nothing for one to gain even if it did.
+permissions:
+  contents: read
+
+jobs:
+  emit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Tags are needed so the claim's provenance can record which one
+          # this release actually is.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Vendored from torus-multibuild `commands/torus-release-claim/`.
+      # It is ~120 dependency-free lines and contains no MultiBuild logic —
+      # only reading facts this repository already holds — so vendoring it
+      # cannot drift in any way that matters: if it produced a wrong claim,
+      # the control plane would reject it.
+      - name: Emit release claim
+        run: node .github/torus/emit-claim.mjs --out release-claim.json
+
+      - name: Show the claim
+        run: cat release-claim.json
+
+      # The claim leaves this repository only as an artifact. MultiBuild
+      # fetches it; this workflow never pushes anywhere.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: torus-release-claim
+          path: release-claim.json
+          retention-days: 90
